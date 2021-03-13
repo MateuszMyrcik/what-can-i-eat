@@ -1,25 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import { ApolloProvider, InMemoryCache, ApolloClient } from '@apollo/client';
+import LandingPage from './components/LandingPage'
+import 'cross-fetch/polyfill';
+
+const client = new ApolloClient({
+    uri: 'http://localhost:4000/graphql',
+    cache: new InMemoryCache(),
+    fetchOptions: {
+        mode: 'no-cors',
+    }
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <ApolloProvider client={client}>
+            <div>
+                <h2>My first Apollo app 🚀</h2>
+                <LandingPage></LandingPage>
+            </div>
+        </ApolloProvider>
+    );
 }
 
 export default App;
